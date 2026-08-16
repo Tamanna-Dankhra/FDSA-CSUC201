@@ -28,6 +28,7 @@ int main(){
         cin>>bookCode[i];
     }
     int target;
+    cout<<"target is : ";
     cin>>target;
     // int x=binarySearch ....
     // if(x==-1){
