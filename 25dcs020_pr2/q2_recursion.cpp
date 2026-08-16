@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-bool binary_search(vector<int>&a,int low,int high,int n,int target){
+bool binary_search(vector<int>&a,int low,int high,int target){
     if(low>high){
         return false;
     }
@@ -12,11 +12,11 @@ bool binary_search(vector<int>&a,int low,int high,int n,int target){
         }
         else if(a[mid]<target){
             low=mid+1;
-            binary_search(a,low,high,n,target);
+           return binary_search(a,low,high,target);
         }
         else if(a[mid]>target){
             high=mid-1;
-            binary_search(a,low,high,n,target);
+            return binary_search(a,low,high,target);
         }
     }
     return false;
@@ -32,9 +32,9 @@ int main(){
         cin>>bookCode[i];
     }
     int target;
-    cout<<"which element to search ";
+    cout<<"target is : ";
     cin>>target;
-    if(!binary_search(bookCode,0,n-1,n,target)){
+    if(!binary_search(bookCode,0,n-1,target)){
         cout<<" element is not found ";
     }
     return 0;
