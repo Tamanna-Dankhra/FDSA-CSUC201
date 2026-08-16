@@ -32,6 +32,7 @@ int main(){
         cin>>bookCode[i];
     }
     int target;
+    cout<<"which element to search ";
     cin>>target;
     if(!binary_search(bookCode,0,n-1,n,target)){
         cout<<" element is not found ";
