@@ -2,6 +2,7 @@
 using namespace std;
 int main(){
     int n;
+    cout<<"insertion sort \n";
     cout<<"enter no of marks : ";
     cin>>n;
     int arr[n];
