@@ -6,6 +6,7 @@ int main(){
     cin>>n;
     int arr[n];
     int cnt0=0,cnt1=0,cnt2=0;
+    cout<<"ans : \t ";
     for(int i=0;i<n;i++){
         cin>>arr[i];
         if(arr[i]==0){
@@ -18,8 +19,9 @@ int main(){
             cnt2++;
         }
     }
-                                        // space complexity is o(n)
 
+    
+                                                 // space complexity is o(n)
     // int hash[n+1]={0};
     // for(int i=0;i<n;i++){
     //     hash[arr[i]]++;
