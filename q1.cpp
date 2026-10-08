@@ -1,113 +1,65 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
+class Queue {
+    int *arr;
+    int n;
+    int front, rear, count;
+public:
+    Queue(int size) {
+        n = size;
+        arr = new int[n];
+        front = 0;
+        rear = -1;
+        count = 0;
+    }
+    void join(int token) {
+        if (count == n) {
+            cout << "Queue Full" << endl;
+            return;
+        }
+        rear = (rear + 1) % n;
+        arr[rear] = token;
+        count++;
 
-struct Node {
-    int data;
-    Node* next;
+        cout << "Front: " << arr[front] << endl;
+    }
+    void serve() {
+        if (count == 0) {
+            cout << "Queue Empty" << endl;
+            return;
+        }
+        front = (front + 1) % n;
+        count--;
 
-    Node(int x) {
-        data = x;
-        next = NULL;
+        if (count == 0) {
+            front = 0;
+            rear = -1;
+        }
+        if (count > 0)
+            cout << "Front: " << arr[front] << endl;
+        else
+            cout << "Queue Empty" << endl;
     }
 };
 
-Node* head = NULL;
-
-void insertFront(int x) {
-    Node* n = new Node(x);
-    n->next = head;
-    head = n;
-}
-
-void insertEnd(int x) {
-    Node* n = new Node(x);
-
-    if (head == NULL) {
-        head = n;
-        return;
-    }
-
-    Node* temp = head;
-    while (temp->next != NULL)
-        temp = temp->next;
-
-    temp->next = n;
-}
-
-void insertPosition(int x, int pos) {
-    if (pos <= 1) {
-        insertFront(x);
-        return;
-    }
-
-    Node* n = new Node(x);
-    Node* temp = head;
-
-    for (int i = 1; i < pos - 1 && temp != NULL; i++)
-        temp = temp->next;
-
-    if (temp == NULL) {
-        insertEnd(x);
-        return;
-    }
-
-    n->next = temp->next;
-    temp->next = n;
-}
-
-void display() {
-    Node* temp = head;
-
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->next;
-    }
-
-    cout << endl;
-}
-
 int main() {
-    int choice, value, pos;
+    int n, operations;
+    cin >> n;
+    cin >> operations;
 
-    while (true) {
-        cout << "\n1. Insert Front";
-        cout << "\n2. Insert End";
-        cout << "\n3. Insert at Position";
-        cout << "\n4. Display";
-        cout << "\n5. Exit";
-        cout << "\nEnter choice: ";
-        cin >> choice;
+    Queue q(n);
+    for (int i = 0; i < operations; i++) {
+        string operation;
+        cin >> operation;
 
-        if (choice == 1) {
-            cout << "Enter value: ";
-            cin >> value;
-            insertFront(value);
-            display();
+        if (operation == "join") {
+            int token;
+            cin >> token;
+            q.join(token);
         }
-        else if (choice == 2) {
-            cout << "Enter value: ";
-            cin >> value;
-            insertEnd(value);
-            display();
-        }
-        else if (choice == 3) {
-            cout << "Enter position: ";
-            cin >> pos;
-            cout << "Enter value: ";
-            cin >> value;
-            insertPosition(value, pos);
-            display();
-        }
-        else if (choice == 4) {
-            display();
-        }
-        else if (choice == 5) {
-            break;
-        }
-        else {
-            cout << "Invalid choice";
+        else if (operation == "serve") {
+            q.serve();
         }
     }
-
     return 0;
 }

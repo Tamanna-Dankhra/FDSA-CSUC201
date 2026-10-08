@@ -1,97 +1,49 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    int data;
-    Node* next;
+class Queue {
+    list<int> q;
 
-    Node(int x) {
-        data = x;
-        next = NULL;
+public:
+    void arrive(int patient) {
+        q.push_back(patient);
+        cout << "Front: " << q.front() << endl;
+    }
+
+    void attend() {
+        if (q.empty()) {
+            cout << "Queue Empty" << endl;
+            return;
+        }
+
+        q.pop_front();
+
+        if (q.empty())
+            cout << "Queue Empty" << endl;
+        else
+            cout << "Front: " << q.front() << endl;
     }
 };
 
-Node* head = NULL;
-
-void insertEnd(int x) {
-    Node* n = new Node(x);
-
-    if (head == NULL) {
-        head = n;
-        return;
-    }
-
-    Node* temp = head;
-
-    while (temp->next != NULL)
-        temp = temp->next;
-
-    temp->next = n;
-}
-
-void deleteValue(int x) {
-    if (head == NULL)
-        return;
-
-    if (head->data == x) {
-        Node* del = head;
-        head = head->next;
-        delete del;
-        return;
-    }
-
-    Node* temp = head;
-
-    while (temp->next != NULL && temp->next->data != x)
-        temp = temp->next;
-
-    if (temp->next != NULL) {
-        Node* del = temp->next;
-        temp->next = del->next;
-        delete del;
-    }
-}
-
-void display() {
-    Node* temp = head;
-
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->next;
-    }
-
-    cout << endl;
-}
-
-void reversePrint(Node* temp) {
-    if (temp == NULL)
-        return;
-
-    reversePrint(temp->next);
-    cout << temp->data << " ";
-}
-
 int main() {
-    insertEnd(10);
-    insertEnd(20);
-    insertEnd(30);
-    insertEnd(40);
-    insertEnd(50);
+    Queue q;
 
-    cout << "Queue: ";
-    display();
+    int operations;
+    cin >> operations;
 
-    deleteValue(30);
+    for (int i = 0; i < operations; i++) {
+        string op;
+        cin >> op;
 
-    cout << "After deletion: ";
-    display();
-
-    cout << "Reverse: ";
-    reversePrint(head);
-    cout << endl;
-
-    cout << "Forward: ";
-    display();
+        if (op == "arrive") {
+            int patient;
+            cin >> patient;
+            q.arrive(patient);
+        }
+        else if (op == "attend") {
+            q.attend();
+        }
+    }
 
     return 0;
 }
